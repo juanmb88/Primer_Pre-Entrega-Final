@@ -1,10 +1,10 @@
 import fs  from "fs";
-import {uuidv4} from 'uuid';
+import {v4 as uuidv4} from "uuid";
 
 export class ProductManager {
 
         constructor() {
-            this.PATH = "./data/products.json";
+            this.PATH = "./src/data/products.json";
             this.products = [];
         }; 
 
@@ -67,5 +67,7 @@ export class ProductManager {
             console.log('El Producto no existe')
          }
     }
+     //-----------------FUNCION  CREAR ID NUMERICO AUTOINCREMENTAL----------------//
+
 
 }
