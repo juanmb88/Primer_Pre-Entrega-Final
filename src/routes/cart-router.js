@@ -5,9 +5,21 @@ import {  cartManager } from '../app.js';
 const cartsRouter =Router();
 
 
+///////////////////////////CREAR UN NUEVO CARRITO//////////////////////////////////
+
+cartsRouter.post( '/',async (req, res) => {
+    try{
+        const response = await cartManager.newCart()
+        res.json(response);
+    }catch(error){
+        console.log(error);
+        res.send("Error al intentar crear el carrito");
+    }
+})
+
 
 ///////////////////////////OBTENER POR ID CARRITO Y LISTAR PRODUCTOS//////////////////////////////////
-cartsRouter.get( '/:id', async (req, res) =>{
+cartsRouter.get( '/:cartId', async (req, res) =>{
   const {cartId} = req.params;
         try{
             const response = await cartManager.getCartProducts(cartId);
@@ -18,10 +30,11 @@ cartsRouter.get( '/:id', async (req, res) =>{
 })
 
 ///////////////////////////OBTENER RUTA PARA AGREGAR PRODUCTOS AL CARRITO//////////////////////////////////
-cartsRouter.post('/cartId/products/productId', async (res, req) => {
-    const {cartId,porductId} =req.params; //primero obtengo  el id de cart y products
+cartsRouter.post( '/:cId/products/:pId', async (req, res) => {
+    const {cId,pId} = req.params;
+        
         try{
-            await cartManager.addProductToCart(cartId, porductId);
+            await cartManager.addProductToCart(cId, pId);
             return res.send('Producto agregado exitosamente')
         }catch(error){
             res.send('Producto no fue agregado al carrito' + error.menssage)
@@ -36,16 +49,3 @@ export {cartsRouter}
 
 
 
-
-
-///////////////////////////CREAR UN NUEVO CARRITO//////////////////////////////////
-
-cartsRouter.post( '/',async(req, res) => {
-    try{
-        const response = await cartManager.newCart()
-        res.json(response);
-    }catch(error){
-        console.log(error);
-        res.send("Error al intentar crear el carrito");
-    }
-})

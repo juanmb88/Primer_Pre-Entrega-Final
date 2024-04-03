@@ -5,6 +5,7 @@ import { CartManager } from "./cartManager.js";
 import { cartsRouter } from "./routes/cart-router.js";
 const puerto = 8080;
 const app = express();
+
 export const  productManager = new ProductManager;
 export const  cartManager = new CartManager;
 
