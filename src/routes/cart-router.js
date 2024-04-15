@@ -4,6 +4,16 @@ import {  cartManager } from '../app.js';
 
 const cartsRouter =Router();
 
+///////////////////////////TRAER TODOS LOS CARRITOS///////////////////////////////
+cartsRouter.get( '/',async (req, res) => {
+    try{
+        const response = await cartManager.getCarts()
+        res.json(response);
+    }catch(error){
+        console.log(error);
+        res.send("Error al intentar crear el carrito");
+    }
+})
 
 ///////////////////////////CREAR UN NUEVO CARRITO//////////////////////////////////
 

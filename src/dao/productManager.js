@@ -54,7 +54,20 @@ export class ProductManager {
             console.log('El Producto no existe')
          }
     }
+     //-----------------FUNCION  ELIMINAR PRODUCTO ----------------//
 
+/*     deleteProduct = async ({title}) => {
+        const products = await this.getProducts();
+        const index = products.findIndex(product => (product.title === title));
+    
+        if(index !== -1){
+            products.splice(index, 1);
+            await fs.promises.writeFile(this.PATH, JSON.stringify(products));
+            console.log('Producto eliminado correctamente.');
+        } else {
+            console.log('El producto no existe.');
+        }
+    } */
  //-----------------FUNCION  ELIMINAR PRODUCTO POR ID----------------//
     deleteProductById = async(id) => {
         const products = await this.getProducts();
@@ -67,7 +80,6 @@ export class ProductManager {
             console.log('El Producto no existe')
          }
     }
-     //-----------------FUNCION  CREAR ID NUMERICO AUTOINCREMENTAL----------------//
 
 
 }

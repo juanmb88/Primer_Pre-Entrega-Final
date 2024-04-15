@@ -25,16 +25,23 @@ export class CartManager {
 
  //-------------------FUNCION OBTENER LISTA DE CARRITOS---------------------//
     getCarts = async  ()=> {
-        const response = await fs.promises.readFile(this.PATH, 'utf-8');
-        const responseParse =  JSON.parse(response);  
-        return  responseParse ;
+        try {
+            const response = await fs.promises.readFile(this.PATH, 'utf-8');
+            const responseParse =  JSON.parse(response);  
+            return  responseParse ;
+        } catch (error) {
+            // Si ocurre un error al leer el archivo, se devuelve una lista vacía
+            console.error("Error al leer los carritos:", error);
+            return [];
+        }
+        
     };
 
 //-------------------FUNCION OBTENER LISTA DE PRODUCTOS DE CARRITO ---------------------//
     getCartProducts = async(id) =>{
         const carts = await this.getCarts();
-
         const cart = carts.find(cart => cart.id === id);
+        
         if (cart){
             return  cart.products
         }else{
@@ -52,15 +59,15 @@ export class CartManager {
 
                     if(findIndexProductToSave != -1){
                         cartProducts[findIndexProductToSave].quantity++;
-                    } else{
+                    } else {
                         cartProducts.push({id:pId, quantity:1})
                     }
+                    
                     carts[findIndexCart].products = cartProducts//sobreescribo  los productos del carrito de compras con la nueva lista de productos
                     await fs.promises.writeFile(this.PATH, JSON.stringify(carts));// se guarda en el archivo la lista de  carritos actualizada
                     console.log("producto agregado con exito") //  para ver si funciona
-                    }else{
-                        console.log("carrito no encontrado por ende producto no agregado")
-
+                } else {
+                        throw new Error("Carrito no encontrado, producto no agregado");
                     }
     }
 }
