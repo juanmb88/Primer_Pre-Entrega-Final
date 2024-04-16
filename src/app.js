@@ -71,7 +71,7 @@ io.on("connection",async socket=>{
         })
 //escuchando deleteProduct
         socket.on("deleteProduct", async(id)=>{
-            console.log(id)
+            console.log("Se recibió un evento para eliminar el producto con ID:", id);
             await productManager.deleteProductById(id)
             const listOfProducts = await productManager.getProducts();
             socket.emit('sendProducts', listOfProducts)

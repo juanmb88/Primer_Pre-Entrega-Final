@@ -20,16 +20,16 @@ productList.forEach(product => {
                              </div>
                             <div class="card-body">
                                 <h5 class="card-title text-black">${product.title}</h5>
-                                <ul  "list-unstyled">
-                                    <li class="fw-normal"><i class="fw-bold bi bi-info-circle">  ID: </i> ${product.id}</li>
-                                    <li class="fw-normal"><i class="fw-bold bi bi-file-text">  Descripcion: </i>${product.description}</li>
-                                    <li class="fw-normal"><i class="fw-bold bi bi-currency-dollar">  Precio: </i>${product.price}</li>
-                                    <li class="fw-normal"><i class="fw-bold bi bi-grid">  Categoria: </i>${product.category}</li>
-                                    <li class="fw-normal"><i class="fw-bold bi bi-check-circle">  Estado: </i>${product.status}</li>
-                                    <li class="fw-normal"><i class="fw-bold bi bi-box">  Stock: </i>${product.stock}</li>
-                                    <li class="fw-normal">
-                                        <i class="fw-bold bi bi-image"> Imagen: </i> <img src="${product.thumbnail}" alt="${product.title}" class="img-fluid mt-2">
-                                    </li>
+                                <ul class="card-text">
+                                    <li class="fw-normal"><i class="fw-bold ">  ID: </i> ${product.id}</li>
+                                    <li class="fw-normal"><i class="fw-bold ">  Descripcion: </i>${product.description}</li>
+                                    <li class="fw-normal"><i class="fw-bold ">  Precio: </i>${product.price}</li>
+                                    <li class="fw-normal"><i class="fw-bold ">  Categoria: </i>${product.category}</li>
+                                    <li class="fw-normal"><i class="fw-bold ">  Estado: </i>${product.status}</li>
+                                    <li class="fw-normal"><i class="fw-bold ">  Stock: </i>${product.stock}</li>
+                                   
+                                        <i class="fw-bold "> Imagen: </i> <img src="${product.thumbnail}" class="img-thumbnail img-fluid mt-2">
+                                  
                                 </ul>
 
                                 <div class=d-flex justify-content-center mb-4>
@@ -74,12 +74,12 @@ form.reset();//esto es para que quede el formulario vacio
 
 ////////eliminar  un producto///////////
 //elimino por ID
-document.getElementById("delete-btn").addEventListener('click', function(){
+document.getElementById("delete-id-btn").addEventListener('click', function(){
     const inputTheId = document.getElementById("id-prod")//esto viene del form en realTimePrioducts.handlebars
-    const deleteId = parseInt(inputTheId.value);
+   const deleteId = (inputTheId.value).toString();
+   inputTheId.value = "";
+   socketClient.emit("deleteProduct", deleteId)
 
-    socketClient.emit("deleteProduct", deleteId)
-    inputTheId.value = "";
   
 })
 //elimino por unidad
